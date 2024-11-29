@@ -13,7 +13,7 @@ import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetMealDishMapper;
-import com.sky.mapper.SetmealMapper;
+import com.sky.mapper.SetMealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -40,7 +40,7 @@ public class DishServiceImpl implements DishService {
     private SetMealDishMapper setMealDishMapper;
 
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetMealMapper setMealMapper;
 
     /**
      * 新增菜品和对应口味
@@ -170,7 +170,7 @@ public class DishServiceImpl implements DishService {
                 .id(id)
                 .status(status)
                 .build();
-//        dishMapper.update(dish);
+        dishMapper.update(dish);
 
         if (status == StatusConstant.DISABLE){
             // 如果是停售操作，还需要将包含当前菜品的套餐也停售
@@ -183,7 +183,7 @@ public class DishServiceImpl implements DishService {
                             .id(setMealId)
                             .status(StatusConstant.DISABLE)
                             .build();
-//                    setMealMapper.update(setmeal);
+                    setMealMapper.update(setmeal);
                 }
             }
         }
