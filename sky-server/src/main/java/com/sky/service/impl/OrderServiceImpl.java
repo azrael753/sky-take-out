@@ -57,7 +57,6 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private WebSocketServer webSocketServer;
 
-    public static Long orderId;
 
     /**
      * 用户下单
@@ -126,6 +125,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+
         // 当前登录用户id
         Long userId = BaseContext.getCurrentId();
         User user = userMapper.getById(userId);
@@ -147,12 +147,13 @@ public class OrderServiceImpl implements OrderService {
         OrderPaymentVO vo = jsonObject.toJavaObject(OrderPaymentVO.class);
         vo.setPackageStr(jsonObject.getString("package"));
 
-        Integer OrderPaidStatus = Orders.PAID;
+        Integer orderPaidStatus = Orders.PAID;
+        Integer orderStatus = Orders.TO_BE_CONFIRMED;
 
-        Integer OrderStatus = Orders.TO_BE_CONFIRMED;
+        String orderNumber = ordersPaymentDTO.getOrderNumber();
 
-        LocalDateTime check_out_time = LocalDateTime.now();
-        orderMapper.updateStatus(OrderStatus,OrderPaidStatus,check_out_time, orderId);
+        LocalDateTime checkOutTime = LocalDateTime.now();
+        orderMapper.updateStatus(orderPaidStatus,orderStatus,checkOutTime, orderNumber);
         return vo;
     }
 

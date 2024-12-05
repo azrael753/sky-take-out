@@ -39,10 +39,11 @@ public interface OrderMapper {
      * @param orderStatus
      * @param orderPaidStatus
      */
-    @Update(
-            "update orders set status = #{orderStatus},pay_status = #{orderPaidStatus} ,checkout_time = #{check_out_time} where id = #{id}")
+    @Update("update orders set status = #{orderStatus},pay_status = #{orderPaidStatus} ," +
+            "checkout_time = #{checkOutTime} where number = #{orderId}")
     void updateStatus(
-            Integer orderStatus, Integer orderPaidStatus, LocalDateTime check_out_time, Long id);
+            Integer orderStatus, Integer orderPaidStatus,
+            LocalDateTime checkOutTime, String orderId);
 
     /**
      * 根据订单状态和时间查询订单
